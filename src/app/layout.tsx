@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Provider } from "@/components/ui/provider";
+import { Provider } from "@/components/provider";
+import { SiteLayout } from "@/components/sites/vercel-com-44cb5a40/shared";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <Provider>{children}</Provider>
+        <Provider>
+          <SiteLayout>{children}</SiteLayout>
+        </Provider>
       </body>
     </html>
   );

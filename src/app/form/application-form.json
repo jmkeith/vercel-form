@@ -1,0 +1,571 @@
+{
+  "id": "application-form",
+  "submitLabel": "Submit Application",
+  "action": "/form/submit",
+  "successMessage": "Application received (demo only: nothing is stored).",
+  "blocks": [
+    {
+      "kind": "grid",
+      "fields": [
+        {
+          "kind": "text",
+          "name": "first_name",
+          "label": "First Name",
+          "placeholder": "First Name",
+          "autoComplete": "given-name",
+          "required": true
+        },
+        {
+          "kind": "text",
+          "name": "last_name",
+          "label": "Last Name",
+          "placeholder": "Last Name",
+          "autoComplete": "family-name",
+          "required": true
+        },
+        {
+          "kind": "text",
+          "name": "email",
+          "label": "Email Address",
+          "type": "email",
+          "placeholder": "tammytriangle@email.com",
+          "autoComplete": "email",
+          "required": true
+        },
+        {
+          "kind": "phone",
+          "name": "phone",
+          "label": "Phone Number",
+          "placeholder": "(201) 555-0123",
+          "defaultCountry": "US",
+          "required": true
+        },
+        {
+          "kind": "file",
+          "name": "resume",
+          "span": "full",
+          "label": "Resume (Optional)",
+          "buttonLabel": "Upload your resume",
+          "helperText": "Resume should be a PDF under 3.5MB.",
+          "accept": [
+            "application/pdf"
+          ],
+          "maxFileSize": 3670016
+        },
+        {
+          "kind": "radio",
+          "name": "question_17919411004",
+          "required": true,
+          "span": "full",
+          "padded": true,
+          "layout": "row",
+          "legend": "Are you based in San Francisco, Austin or New York and will you come into the office three days a week as part of the hybrid schedule?",
+          "options": [
+            {
+              "label": "Yes",
+              "value": "1"
+            },
+            {
+              "label": "No",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "kind": "radio",
+          "name": "question_10078075004",
+          "required": true,
+          "span": "full",
+          "padded": true,
+          "layout": "wrap",
+          "legend": "Are you currently based in any of these countries? Please note these are the only countries where we are accepting applications",
+          "options": [
+            {
+              "label": "United States",
+              "value": "35478238004"
+            },
+            {
+              "label": "Germany",
+              "value": "35478239004"
+            },
+            {
+              "label": "United Kingdom",
+              "value": "35478241004"
+            },
+            {
+              "label": "Argentina",
+              "value": "52996819004"
+            },
+            {
+              "label": "Australia",
+              "value": "35478243004"
+            },
+            {
+              "label": "Canada",
+              "value": "35478246004"
+            },
+            {
+              "label": "India",
+              "value": "35478248004"
+            },
+            {
+              "label": "Japan",
+              "value": "35478250004"
+            },
+            {
+              "label": "Other",
+              "value": "35478252004"
+            }
+          ]
+        },
+        {
+          "kind": "radio",
+          "name": "question_10078076004",
+          "required": true,
+          "span": "full",
+          "padded": true,
+          "layout": "row",
+          "legend": "Will you require Visa Sponsorship now, or in the future?",
+          "options": [
+            {
+              "label": "Yes",
+              "value": "1"
+            },
+            {
+              "label": "No",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "kind": "radio",
+          "name": "question_14151229004",
+          "required": true,
+          "span": "full",
+          "padded": true,
+          "layout": "wrap",
+          "legend": "Your authorization to work in the country where you live. Please choose the option that describes your work authorization.",
+          "options": [
+            {
+              "label": "I am authorized to work in the country due to my nationality",
+              "value": "52683169004"
+            },
+            {
+              "label": "I am authorized to work in the country based on a valid work permit and do not need a company to sponsor my visa",
+              "value": "52683171004"
+            },
+            {
+              "label": "I am authorized to work in the country based on a valid work permit which needs to be sponsored by the company I work for",
+              "value": "52683173004"
+            },
+            {
+              "label": "I am not authorized to work in the country and need visa support",
+              "value": "52683176004"
+            },
+            {
+              "label": "Other",
+              "value": "52683179004"
+            }
+          ]
+        },
+        {
+          "kind": "radio",
+          "name": "question_10907431004",
+          "required": true,
+          "span": "full",
+          "padded": true,
+          "layout": "row",
+          "legend": "Do you live in one of the following states? Alabama, Alaska, Delaware, Kansas, Maine, Mississippi, Montana, Nebraska, New Mexico, North Dakota, South Dakota, West Virginia, or Wyoming.",
+          "options": [
+            {
+              "label": "Yes",
+              "value": "1"
+            },
+            {
+              "label": "No",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "kind": "radio",
+          "name": "question_10078084004",
+          "required": true,
+          "span": "full",
+          "padded": true,
+          "layout": "wrap",
+          "legend": [
+            "By submitting my application, I acknowledge that I have read and understand Vercel’s ",
+            {
+              "text": "Job Applicant Privacy Notice",
+              "href": "https://vercel.com/legal/job-applicant-privacy-notice",
+              "external": true
+            }
+          ],
+          "options": [
+            {
+              "label": "Acknowledge/Confirm",
+              "value": "32394666004"
+            }
+          ]
+        },
+        {
+          "kind": "radio",
+          "name": "question_12248417004",
+          "required": true,
+          "span": "full",
+          "padded": true,
+          "layout": "wrap",
+          "legend": "Please double-check all the information provided above. Ensuring accuracy is crucial, as any errors or omissions may impact the review of your application.",
+          "options": [
+            {
+              "label": "I have reviewed and confirmed that all the information provided is accurate and complete.",
+              "value": "42363280004"
+            }
+          ]
+        },
+        {
+          "kind": "radio",
+          "name": "question_17702579004",
+          "required": true,
+          "span": "full",
+          "padded": true,
+          "layout": "wrap",
+          "legend": "Where did you first hear about this role?",
+          "options": [
+            {
+              "label": "Events",
+              "value": "79894675004"
+            },
+            {
+              "label": "Built In",
+              "value": "79894677004"
+            },
+            {
+              "label": "LinkedIn",
+              "value": "79894679004"
+            },
+            {
+              "label": "Google Search",
+              "value": "79894683004"
+            },
+            {
+              "label": "Advertisements",
+              "value": "79894686004"
+            },
+            {
+              "label": "Other job boards",
+              "value": "79894693004"
+            },
+            {
+              "label": "LLMs (ChatGPT, etc.)",
+              "value": "79894697004"
+            },
+            {
+              "label": "I'm a Vercel customer",
+              "value": "79894701004"
+            },
+            {
+              "label": "Referral from a Vercel customer",
+              "value": "79894710004"
+            },
+            {
+              "label": "Referral from a Vercel team member",
+              "value": "79894714004"
+            },
+            {
+              "label": "Social media (X, Instagram, YouTube, etc.)",
+              "value": "79894720004"
+            },
+            {
+              "label": "Other Content (news articles, podcasts, blogs)",
+              "value": "79894724004"
+            },
+            {
+              "label": "Developer communities (GitHub, Hacker News, Reddit, etc.)",
+              "value": "79894729004"
+            },
+            {
+              "label": "Other",
+              "value": "79894732004"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "stack",
+      "intro": [
+        [
+          {
+            "text": "U.S. Standard Demographic Questions",
+            "strong": true
+          },
+          "."
+        ],
+        [
+          "At Vercel, we value belonging and believe in fostering an environment where a diversity of perspectives can thrive. As part of this commitment, we invite you to voluntarily provide demographic information. Your responses will be used (in aggregate only) to help us better understand the diversity of our applicants and identify areas of improvement in our recruitment and hiring process. Your responses, or decision not to respond, will be kept confidential and will only be used in aggregate form for diversity and inclusion efforts. This information ",
+          {
+            "text": "will not",
+            "underline": true
+          },
+          " be associated with your specific application and ",
+          {
+            "text": "will not",
+            "underline": true
+          },
+          " be disclosed to the hiring team or used in the hiring decision in any way."
+        ],
+        [
+          "Individuals seeking employment are considered without regard to race, color, religion, national origin, age, sex, marital status, ancestry, physical or mental disability, veteran status, or sexual orientation. Asking the below questions help us comply with federal and state Equal Employment Opportunity/Affirmative Action record keeping, reporting, and other legal requirements."
+        ]
+      ],
+      "fields": [
+        {
+          "kind": "checkbox",
+          "name": "demographic_4015790004",
+          "layout": "column",
+          "legend": "How would you describe your gender identity? (mark all that apply)",
+          "options": [
+            {
+              "label": "Man",
+              "value": "4094149004"
+            },
+            {
+              "label": "Non-binary",
+              "value": "4094147004"
+            },
+            {
+              "label": "Woman",
+              "value": "4094144004"
+            },
+            {
+              "label": "I prefer to self-describe",
+              "value": "4094143004"
+            },
+            {
+              "label": "I don't wish to answer",
+              "value": "4094141004"
+            }
+          ]
+        },
+        {
+          "kind": "checkbox",
+          "name": "demographic_4015786004",
+          "layout": "column",
+          "legend": "How would you describe your racial/ethnic background? (mark all that apply)",
+          "options": [
+            {
+              "label": "Black or of African descent",
+              "value": "4094137004"
+            },
+            {
+              "label": "East Asian",
+              "value": "4094135004"
+            },
+            {
+              "label": "Hispanic, Latinx or of Spanish Origin",
+              "value": "4094133004"
+            },
+            {
+              "label": "Indigenous, American Indian or Alaska Native",
+              "value": "4094131004"
+            },
+            {
+              "label": "Middle Eastern or North African",
+              "value": "4094129004"
+            },
+            {
+              "label": "Native Hawaiian or Pacific Islander",
+              "value": "4094128004"
+            },
+            {
+              "label": "South Asian",
+              "value": "4094125004"
+            },
+            {
+              "label": "Southeast Asian",
+              "value": "4094123004"
+            },
+            {
+              "label": "White or European",
+              "value": "4094121004"
+            },
+            {
+              "label": "I prefer to self-describe",
+              "value": "4094120004"
+            },
+            {
+              "label": "I don't wish to answer",
+              "value": "4094119004"
+            }
+          ]
+        },
+        {
+          "kind": "checkbox",
+          "name": "demographic_4015785004",
+          "layout": "column",
+          "legend": "How would you describe your sexual orientation? (mark all that apply)",
+          "options": [
+            {
+              "label": "Asexual",
+              "value": "4094117004"
+            },
+            {
+              "label": "Bisexual and/or pansexual",
+              "value": "4094115004"
+            },
+            {
+              "label": "Gay",
+              "value": "4094113004"
+            },
+            {
+              "label": "Heterosexual",
+              "value": "4094111004"
+            },
+            {
+              "label": "Lesbian",
+              "value": "4094110004"
+            },
+            {
+              "label": "Queer",
+              "value": "4094109004"
+            },
+            {
+              "label": "I prefer to self-describe",
+              "value": "4094108004"
+            },
+            {
+              "label": "I don't wish to answer",
+              "value": "4094107004"
+            }
+          ]
+        },
+        {
+          "kind": "radio",
+          "name": "demographic_4015783004",
+          "layout": "column",
+          "legend": "Do you identify as transgender?",
+          "options": [
+            {
+              "label": "Yes",
+              "value": "4094104004"
+            },
+            {
+              "label": "No",
+              "value": "4094102004"
+            },
+            {
+              "label": "I prefer to self-describe",
+              "value": "4094099004"
+            },
+            {
+              "label": "I don't wish to answer",
+              "value": "4094097004"
+            }
+          ]
+        },
+        {
+          "kind": "radio",
+          "name": "demographic_4015781004",
+          "layout": "column",
+          "legend": "Do you have a disability or chronic condition (physical, visual, auditory, cognitive, mental, emotional, or other) that substantially limits one or more of your major life activities, including mobility, communication (seeing, hearing, speaking), and learning?",
+          "options": [
+            {
+              "label": "Yes",
+              "value": "4094093004"
+            },
+            {
+              "label": "No",
+              "value": "4094090004"
+            },
+            {
+              "label": "I prefer to self-describe",
+              "value": "4094088004"
+            },
+            {
+              "label": "I don't wish to answer",
+              "value": "4094087004"
+            }
+          ]
+        },
+        {
+          "kind": "radio",
+          "name": "demographic_4015780004",
+          "layout": "column",
+          "legend": "Are you a veteran or active member of the United States Armed Forces?",
+          "options": [
+            {
+              "label": "Yes, I am a veteran or active member",
+              "value": "4094083004"
+            },
+            {
+              "label": "No, I am not a veteran or active member",
+              "value": "4094081004"
+            },
+            {
+              "label": "I prefer to self-describe",
+              "value": "4094079004"
+            },
+            {
+              "label": "I don't wish to answer",
+              "value": "4094077004"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "divider"
+    },
+    {
+      "kind": "note",
+      "content": "Optionally, include links to your social media profiles."
+    },
+    {
+      "kind": "grid",
+      "fields": [
+        {
+          "kind": "text",
+          "name": "question_10078080004",
+          "label": "LinkedIn",
+          "ariaLabel": "LinkedIn Handle",
+          "prefix": "linkedin.com/in/",
+          "placeholder": "handle",
+          "autoComplete": "off",
+          "maxLength": 60
+        },
+        {
+          "kind": "text",
+          "name": "question_10078081004",
+          "label": "X (Twitter)",
+          "ariaLabel": "X (Twitter) Handle",
+          "prefix": "x.com/",
+          "placeholder": "handle",
+          "autoComplete": "off",
+          "maxLength": 60
+        },
+        {
+          "kind": "text",
+          "name": "question_10078082004",
+          "label": "GitHub",
+          "ariaLabel": "GitHub Handle",
+          "prefix": "github.com/",
+          "placeholder": "handle",
+          "autoComplete": "off",
+          "maxLength": 60
+        },
+        {
+          "kind": "text",
+          "name": "question_10078083004",
+          "label": "Portfolio",
+          "ariaLabel": "Portfolio URL",
+          "prefix": "https://",
+          "placeholder": "portfolio.com",
+          "autoComplete": "off",
+          "maxLength": 60
+        }
+      ]
+    }
+  ]
+}

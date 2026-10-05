@@ -1,0 +1,23 @@
+{
+  "skill_name": "chakra-slot-recipe",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Convert this pricing card into a Chakra v3 component I can reuse, put it in src/components/PricingCard.\n\n<div class=\"pricing-card pricing-card--featured\">\n  <span class=\"pricing-card__badge\">Most popular</span>\n  <h3 class=\"pricing-card__name\">Pro</h3>\n  <p class=\"pricing-card__price\">$20<span class=\"pricing-card__period\">/mo</span></p>\n  <ul class=\"pricing-card__features\">\n    <li>Unlimited projects</li>\n    <li>Priority support</li>\n  </ul>\n  <a class=\"pricing-card__cta\" href=\"/signup\">Get started</a>\n</div>\n\n<style>\n.pricing-card { display:flex; flex-direction:column; gap:16px; padding:24px; border:1px solid #e5e5e5; border-radius:12px; background:#fff; }\n.pricing-card--featured { border-color:#2563eb; box-shadow:0 8px 24px rgba(37,99,235,.15); }\n.pricing-card__badge { align-self:flex-start; font-size:12px; font-weight:600; padding:2px 8px; border-radius:999px; background:#2563eb; color:#fff; }\n.pricing-card__name { font-size:18px; font-weight:600; }\n.pricing-card__price { font-size:36px; font-weight:700; }\n.pricing-card__period { font-size:14px; color:#737373; font-weight:400; }\n.pricing-card__features { display:flex; flex-direction:column; gap:8px; color:#525252; font-size:14px; }\n.pricing-card__cta { margin-top:auto; text-align:center; padding:10px 16px; border-radius:8px; background:#171717; color:#fff; font-weight:500; }\n.pricing-card__cta:hover { background:#404040; }\n@media (min-width:768px){ .pricing-card { padding:32px; } }\n</style>",
+      "expected_output": "src/components/PricingCard/ with index.ts, PricingCard.recipe.ts, PricingCard.tsx; slots for badge/name/price/period/features/cta; a featured variant; hover and md padding preserved; typechecks.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "i've got this tailwind testimonial thing, can you chakra-ify it into a proper component w/ sm and lg sizes? put it under src/components/Testimonial\n\nexport function Testimonial({ quote, name, role, avatar, large }) {\n  return (\n    <figure className={`rounded-xl border bg-white dark:bg-neutral-900 ${large ? 'p-8' : 'p-5'} flex flex-col gap-4`}>\n      <blockquote className={`${large ? 'text-xl' : 'text-base'} text-neutral-900 dark:text-neutral-50`}>“{quote}”</blockquote>\n      <figcaption className=\"flex items-center gap-3\">\n        <img src={avatar} alt=\"\" className=\"h-10 w-10 rounded-full object-cover\" />\n        <div>\n          <div className=\"font-medium text-sm\">{name}</div>\n          <div className=\"text-sm text-neutral-500\">{role}</div>\n        </div>\n      </figcaption>\n    </figure>\n  )\n}",
+      "expected_output": "src/components/Testimonial/ with the three files; size variant sm/lg; semantic tokens replacing dark: classes; figure/blockquote/figcaption semantics kept; typechecks.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Build me a StatTile component for our dashboard in src/components/StatTile: label, big value, a change indicator (up = green, down = red), and an optional icon on the right. I want subtle / outline looks and it should pick up colorPalette.",
+      "expected_output": "src/components/StatTile/ with the three files; slots label/value/change/icon; variant subtle|outline; a trend-style variant for up/down; colorPalette tokens used; typechecks.",
+      "files": []
+    }
+  ]
+}
