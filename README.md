@@ -73,9 +73,9 @@ Replace the URL with the website you want to recreate. Once it's built, ask your
 ## Tech Stack
 
 - **Next.js 16** — App Router, React 19, TypeScript strict
-- **shadcn/ui** — Radix primitives + Tailwind CSS v4
-- **Tailwind CSS v4** — oklch design tokens
-- **Lucide React** — default icons (replaced by extracted SVGs during cloning)
+- **Chakra UI v3** — components, style props, and theme tokens
+- **next-themes** — light/dark color mode
+- **react-icons** — default icons (replaced by extracted SVGs during cloning)
 
 ## How It Works
 
@@ -107,9 +107,9 @@ Each builder agent receives the full component specification inline — exact `g
 src/
   app/              # Next.js routes
   components/       # React components
-    ui/             # shadcn/ui primitives
+    ui/             # Chakra UI snippets (provider, color-mode)
     icons.tsx       # Extracted SVG icons
-  lib/utils.ts      # cn() utility
+  lib/theme.ts      # Chakra theme tokens
   types/            # TypeScript interfaces
   hooks/            # Custom React hooks
 public/

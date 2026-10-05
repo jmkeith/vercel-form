@@ -1,0 +1,23 @@
+{
+  "enabledPlugins": {
+    "chrome-devtools-mcp@claude-plugins-official": true
+  },
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "xvfb-run",
+      "args": ["--auto-servernum", "npx", "-y", "chrome-devtools-mcp@latest"],
+      "env": {
+        "CHROME_PATH": "/opt/google/chrome/chrome"
+      },
+      "disabled": false
+    },
+    "chrome": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
+    },
+    "chakra-ui": {
+      "command": "npx",
+      "args": ["-y", "@chakra-ui/react-mcp"]
+    }
+  }
+}

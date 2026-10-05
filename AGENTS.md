@@ -11,13 +11,14 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 # Website Reverse-Engineer Template
 
 ## What This Is
-A reusable template for reverse-engineering any website into a clean, modern Next.js codebase using AI coding agents. The Next.js + shadcn/ui + Tailwind v4 base is pre-scaffolded — just run `/clone-website <url1> [<url2> ...]`.
+A reusable template for reverse-engineering any website into a clean, modern Next.js codebase using AI coding agents. The Next.js + Chakra UI v3 base is pre-scaffolded — just run `/clone-website <url1> [<url2> ...]`.
 
 ## Tech Stack
 - **Framework:** Next.js 16 (App Router, React 19, TypeScript strict)
-- **UI:** shadcn/ui (Radix primitives, Tailwind CSS v4, `cn()` utility)
-- **Icons:** Lucide React (default — will be replaced/supplemented by extracted SVGs)
-- **Styling:** Tailwind CSS v4 with oklch design tokens
+- **UI:** Chakra UI v3 (`@chakra-ui/react` + Emotion; components and style props)
+- **Color mode:** next-themes (via `src/components/ui/color-mode.tsx`)
+- **Icons:** react-icons (default — will be replaced/supplemented by extracted SVGs)
+- **Styling:** Chakra style props backed by theme tokens in `src/lib/theme.ts` (colors as hex/rgb/rgba)
 - **Deployment:** Vercel
 
 ## Commands
@@ -30,7 +31,7 @@ A reusable template for reverse-engineering any website into a clean, modern Nex
 ## Code Style
 - TypeScript strict mode, no `any`
 - Named exports, PascalCase components, camelCase utils
-- Tailwind utility classes, no inline styles
+- Chakra style props and theme tokens; no inline `style`, no utility-class strings, no separate CSS files
 - 2-space indentation
 - Responsive: mobile-first
 
@@ -45,10 +46,10 @@ A reusable template for reverse-engineering any website into a clean, modern Nex
 src/
   app/              # Next.js routes
   components/       # React components
-    ui/             # shadcn/ui primitives
+    ui/             # Chakra UI snippets (provider, color-mode)
     icons.tsx       # Extracted SVG icons as React components
   lib/
-    utils.ts        # cn() utility (shadcn)
+    theme.ts        # Chakra system: design tokens, semantic tokens, global CSS
   types/            # TypeScript interfaces
   hooks/            # Custom React hooks
 public/

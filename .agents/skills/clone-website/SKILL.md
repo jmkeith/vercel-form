@@ -46,13 +46,13 @@ Routing defaults:
 - For multiple URLs from the same origin, or any later clone added to a project that already contains cloned/user-authored pages, preserve the normalized source pathname as its App Router URL (for example, `/docs/intro` becomes `<app-root>/src/app/docs/intro/page.tsx`). Encode filesystem segment names that would invoke App Router syntax: escape a leading `_` or `@`, and literal parentheses or square brackets, with percent-encoded folder spellings rather than creating private folders, slots, route groups, or dynamic segments. Verify the built route resolves at the exact normalized URL before completion.
 - Inspect every existing `src/app/**/page.tsx` before writing. Never delete or replace a non-scaffold route, component tree, research folder, screenshot, or asset namespace unless the user explicitly approves that exact replacement.
 - If the planned route already exists, stop and ask whether to update that route, choose another route, or skip it.
-- URLs from different origins may require incompatible fonts, global CSS, layouts, and metadata. Before modifying files, ask whether the user wants separate prepared application roots (recommended) or an intentionally combined multi-site app with route-scoped styling. Do not create an unapproved monorepo or silently mix global foundations.
+- URLs from different origins may require incompatible fonts, theme tokens, global CSS, layouts, and metadata. Before modifying files, ask whether the user wants separate prepared application roots (recommended) or an intentionally combined multi-site app with route-scoped styling. Do not create an unapproved monorepo or silently mix global foundations.
 
 ## Pre-Flight
 
 1. **Browser automation is required.** Check for available browser MCP tools (Chrome MCP, Playwright MCP, Browserbase MCP, Puppeteer MCP, etc.). Use whichever is available — if multiple exist, prefer Chrome MCP. If none are detected, ask the user which browser tool they have and how to connect it. This skill cannot work without browser automation.
 2. Parse the target URL or URLs from the user's request. Normalize and validate each URL; if any are invalid, ask the user to correct them before proceeding. For each valid URL, verify it is accessible via your browser MCP tool.
-3. Verify the base project builds: `npm run build`. The Next.js + shadcn/ui + Tailwind v4 scaffold should already be in place. If not, tell the user to set it up first.
+3. Verify the base project builds: `npm run build`. The Next.js + Chakra UI v3 scaffold (`@chakra-ui/react`, `next-themes`, `react-icons`) should already be in place. If not, tell the user to set it up first.
 4. Inventory existing routes (`src/app/**/page.tsx`), site component namespaces, research artifacts, screenshots, and public assets. Distinguish the untouched template scaffold from existing cloned or user-authored work.
 5. Write an output plan listing every target URL, `<app-root>`, `<site-key>`, `<page-key>`, destination route, artifact roots, and whether any shared foundation file must change. Resolve collisions across every planned output, same-path query/fragment behavior, and multi-origin layout decisions with the user before editing.
 6. Create only the planned per-page/per-site directories plus `scripts/` if needed. Use unique asset-download script names such as `scripts/download-assets-<site-key>-<page-key>.mjs`; do not overwrite another page's downloader.
@@ -84,7 +84,7 @@ Extract the actual text, images, videos, and SVGs from the live site. This is a 
 
 ### 4. Foundation First
 
-Nothing can be built until the foundation exists: global CSS with the target site's design tokens (colors, fonts, spacing), TypeScript types for the content structures, and global assets (fonts, favicons). This is sequential and non-negotiable. Everything after this can be parallel.
+Nothing can be built until the foundation exists: the Chakra theme (`src/lib/theme.ts`) with the target site's design tokens (colors, fonts, spacing, radii, breakpoints), TypeScript types for the content structures, and global assets (fonts, favicons). This is sequential and non-negotiable. Everything after this can be parallel.
 
 ### 5. Extract How It Looks AND How It Behaves
 
@@ -157,13 +157,21 @@ Navigate to the target URL with browser MCP.
 ### Global Extraction
 Extract these from the page before doing anything else:
 
-**Fonts** — Inspect `<link>` tags for Google Fonts or self-hosted fonts. Check computed `font-family` on key elements (headings, body, code, labels). Document every family, weight, and style actually used. For a single-site app, configure shared fonts in `src/app/layout.tsx` using `next/font/google` or `next/font/local`. In an approved combined multi-site app, keep incompatible fonts/layout concerns route-scoped.
+**Fonts** — Inspect `<link>` tags for Google Fonts or self-hosted fonts. Check computed `font-family` on key elements (headings, body, code, labels). Document every family, weight, and style actually used. For a single-site app, configure shared fonts in `src/app/layout.tsx` using `next/font/google` or `next/font/local`, expose each as a CSS variable, and point the theme's `fonts.heading` / `fonts.body` / `fonts.mono` tokens at those variables. In an approved combined multi-site app, keep incompatible fonts/layout concerns route-scoped.
 
-**Colors** — Extract the site's color palette from computed styles across the page. For a single-site app, merge the target's colors into `src/app/globals.css` without removing tokens required by existing routes. Map them to shadcn's token names (background, foreground, primary, muted, etc.) where they fit. In an approved combined multi-site app, use a route wrapper or scoped token namespace instead of replacing another site's global palette.
+**Colors** — Extract the site's color palette from computed styles across the page. For a single-site app, merge the target's colors into the Chakra system in `src/lib/theme.ts` without removing tokens required by existing routes. Follow these conversion rules:
+
+- **Format:** record colors exactly as `getComputedStyle()` reports them and store them as hex (`#0a0a0a`) or, when there is alpha, `rgba(...)`. If the browser reports `oklch()`, `lab()`, or `color()` values, convert them to sRGB hex/rgba first (draw the color to a 1×1 canvas and read the pixel back) so the token matches what is actually rendered.
+- **Raw palette → `theme.tokens.colors`:** put each brand hue in its own scale (`brand.50` … `brand.950`); when the site only uses a few shades, define just those steps rather than inventing the rest.
+- **Roles → `theme.semanticTokens.colors`:** map page roles onto Chakra's semantic names with `{ _light, _dark }` values where the site has both modes — page background → `bg`, raised/alternate surfaces → `bg.subtle` / `bg.muted` / `bg.panel`, body text → `fg`, secondary text → `fg.muted` / `fg.subtle`, hairlines → `border` / `border.muted`, errors → `fg.error` / `border.error`. Every custom palette must also define `solid`, `contrast`, `fg`, `muted`, `subtle`, `emphasized`, and `focusRing` so `colorPalette="brand"` works on Chakra components.
+- **Opacity:** use Chakra's modifier syntax (`bg="brand.500/20"`) or a literal `rgba()` — never a class-name suffix.
+- **Color mode:** dark/light switching is handled by `next-themes` through `src/components/ui/color-mode.tsx` (`useColorMode`, `ColorModeButton`, `LightMode`, `DarkMode`). If the target has a single fixed mode, pass `forcedTheme` to `<Provider>` in the layout.
+
+Extract radii, shadows, spacing, and breakpoints the same way into `theme.tokens` / `theme.breakpoints` when the target uses a consistent scale; one-off values go straight into style props. In an approved combined multi-site app, use a site-prefixed token namespace (`<site-key>.bg`, `<site-key>.brand.500`, …) instead of replacing another site's global palette.
 
 **Favicons & Meta** — Download page/site SEO assets under the planned site asset namespace. Put truly app-global metadata in the root layout only when it applies to every route; otherwise export route-specific metadata from the destination page or a route layout.
 
-**Global UI patterns** — Identify any site-wide CSS or JS: custom scrollbar hiding, scroll-snap on the page container, global keyframe animations, backdrop filters, gradients used as overlays, **smooth scroll libraries** (Lenis, Locomotive Scroll — check for `.lenis`, `.locomotive-scroll`, or custom scroll container classes). Merge truly shared behavior into `globals.css`; keep page-specific behavior scoped to the page so existing routes do not change unexpectedly.
+**Global UI patterns** — Identify any site-wide CSS or JS: custom scrollbar hiding, scroll-snap on the page container, global keyframe animations, backdrop filters, gradients used as overlays, **smooth scroll libraries** (Lenis, Locomotive Scroll — check for `.lenis`, `.locomotive-scroll`, or custom scroll container classes). Merge truly shared behavior into the theme's `globalCss` and `theme.keyframes` in `src/lib/theme.ts`; keep page-specific behavior scoped to the page (the `css` prop on a route wrapper) so existing routes do not change unexpectedly.
 
 ### Mandatory Interaction Sweep
 
@@ -208,9 +216,9 @@ Save this as `<artifact-root>/PAGE_TOPOLOGY.md` — it becomes your assembly blu
 This is sequential per origin. Do it yourself (not delegated to an agent) since it touches shared files. Re-read the output plan and preserve every existing route before editing:
 
 1. **Merge fonts and shared layout behavior** without deleting requirements of existing routes. Use route layouts when behavior is not truly app-global.
-2. **Merge global CSS carefully**; scope page/site-specific tokens, keyframes, scroll behavior, and utilities under a route wrapper when they could conflict.
+2. **Merge theme tokens and global CSS carefully** in `src/lib/theme.ts`; scope page/site-specific tokens, keyframes, and scroll behavior under a namespace or route wrapper when they could conflict. Do not add standalone `.css` files.
 3. **Create namespaced TypeScript interfaces** for the content structures you've observed; reuse existing same-site types only when their contracts match.
-4. **Extract SVG icons** — deduplicate same-site icons under `src/components/sites/<site-key>/shared/icons.tsx`; keep page-only icons in the page component namespace. Name them by visual function (e.g., `SearchIcon`, `ArrowRightIcon`, `LogoIcon`).
+4. **Extract SVG icons** — wrap each extracted `<svg>` with Chakra's `Icon` (`<Icon asChild><svg …/></Icon>`) so it accepts style props; deduplicate same-site icons under `src/components/sites/<site-key>/shared/icons.tsx`; keep page-only icons in the page component namespace. Name them by visual function (e.g., `SearchIcon`, `ArrowRightIcon`, `LogoIcon`). Use `react-icons` only when the target itself uses a recognizable icon set and the glyph matches exactly; otherwise use the extracted SVG.
 5. **Download assets into the planned namespace** — use the page's uniquely named download script and write into `public/sites/<site-key>/<page-key>/` or the approved same-site shared directory. Never write a generic filename over another page's asset.
 6. Verify every previously existing route still builds, then run `npm run build`.
 
@@ -413,10 +421,22 @@ Based on complexity, dispatch builder agent(s) in worktree(s):
 **What every builder agent receives:**
 - The full contents of its component spec file (inline in the prompt — don't say "go read the spec file")
 - Path to the section screenshot in the page's namespaced screenshot root
-- Which shared components to import (the planned site-scoped icon module, `cn()`, shadcn primitives)
+- Which shared components to import (the planned site-scoped icon module, Chakra components from `@chakra-ui/react`, `react-icons` glyphs where specified)
+- The theme tokens available (color, font, radius, breakpoint names from `src/lib/theme.ts`) listed inline
+- The styling rules below
 - The namespaced target file path (e.g., `src/components/sites/<site-key>/<page-key>/HeroSection.tsx`)
 - Instruction to verify with `npx tsc --noEmit` before finishing
 - For responsive behavior: the specific breakpoint values and what changes
+
+**Styling rules for builders (Chakra UI v3):**
+- Build with Chakra layout and typography primitives (`Box`, `Flex`, `Grid`, `Stack`, `Text`, `Heading`, `Image`, `Link`, …) and style them with style props. No `className` utility strings, no inline `style`, no CSS files.
+- Use a theme token when the spec value equals one; otherwise pass the exact computed value as a string (`fontSize="18px"`, `lineHeight="24px"`, `px="22px"`, `maxW="1200px"`). Never round to the nearest token — `p="4"` is wrong if the computed padding is `18px`.
+- States use condition props: `_hover`, `_focusVisible`, `_active`, `_disabled`, `_expanded`, `_dark`, `_before` / `_after`. Transitions use the exact extracted value (`transition="all 0.3s ease"`).
+- Responsive values use the object syntax with the theme's breakpoints (`direction={{ base: "column", md: "row" }}`). If the target's breakpoints differ from Chakra's defaults, they must already be defined in `theme.breakpoints`; for a one-off width use the `css` prop with a media query.
+- Anything without a style prop (complex selectors, `animation-timeline`, scrollbar hiding) goes in the `css` prop.
+- Chakra v3 API, not v2: compound components (`Accordion.Root`, `Dialog.Root`, `Tabs.Root`), `colorPalette` not `colorScheme`, `gap` not `spacing`, `disabled` / `open` not `isDisabled` / `isOpen`, `asChild` for `next/link` and `next/image` composition.
+- Chakra components with style props work in Server Components; add `"use client"` only for hooks, event handlers, or `useColorMode`.
+- For interactive widgets (dialog, menu, tabs, accordion, popover), start from the Chakra component and override its styles to match the spec; add further snippets with `npx @chakra-ui/cli snippet add <name>` when needed.
 
 **Don't wait.** As soon as you've dispatched the builder(s) for one section, move to extracting the next section. Builders work in parallel in their worktrees while you continue extraction.
 
@@ -481,7 +501,7 @@ These are lessons from previous failed clones — each one cost hours of rework:
 - **Don't extract only the default state.** If there are tabs showing "Featured" on load, click Productivity, Creative, Lifestyle and extract each one's cards/content. If the header changes on scroll, capture styles at position 0 AND position 100+.
 - **Don't miss overlay/layered images.** A background watercolor + foreground UI mockup = 2 images. Check every container's DOM tree for multiple `<img>` elements and positioned overlays.
 - **Don't build mockup components for content that's actually videos/animations.** Check if a section uses `<video>`, Lottie, or canvas before building elaborate HTML mockups of what the video shows.
-- **Don't approximate CSS classes.** "It looks like `text-lg`" is wrong if the computed value is `18px` and `text-lg` is `18px/28px` but the actual line-height is `24px`. Extract exact values.
+- **Don't approximate with theme tokens.** "It looks like `fontSize="lg"`" is wrong if the computed value is `18px/24px` and the token resolves to a different size or line-height. Extract exact values and pass them through (`fontSize="18px" lineHeight="24px"`) unless a token matches exactly.
 - **Don't build everything in one monolithic commit.** The whole point of this pipeline is incremental progress with verified builds at each step.
 - **Don't treat a new target as permission to replace the current app.** Preserve existing routes and namespaced artifacts; ask before updating a route that already exists.
 - **Don't reference docs from builder prompts.** Each builder gets the CSS spec inline in its prompt — never "see DESIGN_TOKENS.md for colors." The builder should have zero need to read external docs.

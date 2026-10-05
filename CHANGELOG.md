@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **Breaking:** Replaced the shadcn/ui + Tailwind CSS v4 + Lucide scaffold with Chakra UI v3, next-themes, and react-icons. Design tokens now live in `src/lib/theme.ts` instead of `src/app/globals.css`, and the clone skill emits Chakra style props instead of utility classes.
+
 ## [0.5.1] - 2026-09-26
 
 ### Changed
