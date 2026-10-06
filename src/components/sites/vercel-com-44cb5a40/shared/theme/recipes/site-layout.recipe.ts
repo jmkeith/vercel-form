@@ -18,7 +18,10 @@ export const siteLayoutRecipe = defineSlotRecipe({
       marginInline: "auto",
       borderTop: "1px solid {colors.ds.gray.400}",
       borderInline: { base: "0", sm: "1px solid {colors.ds.gray.400}" },
-      "& > :not(:last-child)": { borderBottom: "1px solid {colors.ds.gray.400}" },
+      marginTop: "3rem",
+      "& > :not(:last-child)": {
+        borderBottom: "1px solid {colors.ds.gray.400}",
+      },
     },
     // Decorative row of twelve square cells.
     band: {
